@@ -7,14 +7,18 @@ const ROUTES = {
           edit: {},
       } 
   }, 
-  customer: { 
-      contacts: { 
-          paramId: { 
-              __$$name: ':id', 
-              view: {} 
+  customer: {
+      customerId: {
+          __$$name: ':customerId', 
+          contact: {
+              contactId: { 
+                  __$$name: ':contactId', 
+                  view: {} 
+              } 
           } 
-      } 
+      }
   } 
 }
 
-console.log(createBuilder(ROUTES).admin.profile.edit.build()); // "/admin/profile/edit"
+console.log(createBuilder(ROUTES).customer.customerId.contact.contactId.view.build()); // "/customer/:customerId/contact/:contactId/view"
+console.log(createBuilder(ROUTES).customer.customerId.contact.contactId.view.build('--guid--', 123)); // "/customer/--guid--/contact/123/view"
