@@ -3,8 +3,8 @@ type IRouteBuildState<T> = {}
 & { [P in keyof T]: IRouteBuildState<T[P]> }
 & { $: string };
 
-function createBuilder<TRouteDefinition>(routeModel: TRouteDefinition, { baseRoute = '' } = {}) {
-  const builder: any = new Proxy(Object.assign(function() {}, { currentModel: routeModel, segments: [baseRoute] }), {
+function createBuilder<TRouteDefinition>(routeModel: TRouteDefinition, { baseRoute = '', relative = false } = {}) {
+  const builder: any = new Proxy(Object.assign(function() {}, { currentModel: routeModel, segments: relative ? [] : [baseRoute] }), {
     get: function(target: any, prop: string, receiver: any) {
       if (prop === '$') return target.segments.join('/')
       target.currentModel = target.currentModel[prop]
